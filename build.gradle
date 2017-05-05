@@ -1,0 +1,49 @@
+group 'com.zeyiyouhuo.tms'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+repositories {
+    def REPOSITORY_URL = 'http://maven.aliyun.com/nexus/content/groups/public/'
+    all { ArtifactRepository repo ->
+        if(repo instanceof MavenArtifactRepository){
+            def url = repo.url.toString()
+            if (url.startsWith('https://repo1.maven.org/maven2') || url.startsWith('https://jcenter.bintray.com/')) {
+                project.logger.lifecycle "Repository ${repo.url} replaced by $REPOSITORY_URL."
+                remove repo
+            }
+        }
+    }
+    maven {
+        url REPOSITORY_URL
+    }
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    runtime 'mysql:mysql-connector-java:5.+'
+}
+
+buildscript {
+    ext {
+        springBootVersion = '1.4.3.RELEASE'
+    }
+
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
