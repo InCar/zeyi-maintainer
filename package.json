@@ -1,0 +1,23 @@
+{
+  "name": "zeyi-maintainer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://dig2dev@git.coding.net/dig2dev/zeyi-maintainer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "co": "^4.6.0",
+    "moment": "^2.15.1",
+    "mysql": "^2.12.0",
+    "promise": "^7.1.1",
+    "request": "^2.75.0",
+    "pinyin": "^2.8.0"
+  }
+}
