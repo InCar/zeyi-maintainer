@@ -95,6 +95,10 @@ co(function*() {
                 }
             });
             let json2 = JSON.parse(res2.body);
+            if (json2.showapi_res_body.flag === false) {
+                console.log('未查到区县数据：' + JSON.stringify(cities[k]));
+                continue;
+            }
             let districts = json2.showapi_res_body.data;
             let insertedDistricts = [];
             for (let m = 0; m < districts.length; m++) {
