@@ -4,6 +4,7 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'com.ewerk.gradle.plugins.querydsl'
 
 sourceCompatibility = 1.8
 compileJava.options.encoding = 'UTF-8'
@@ -29,6 +30,9 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+    compile 'com.querydsl:querydsl-core:4.1.+'
+    compile 'com.querydsl:querydsl-jpa:4.1.+'
+    compile 'com.querydsl:querydsl-apt:4.1.+'
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
@@ -46,5 +50,20 @@ buildscript {
 
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath 'gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.+'
+    }
+}
+
+querydsl {
+    querydslSourcesDir = "src/generated/java/"
+    jpa = true
+}
+
+sourceSets.main.java.srcDirs 'src/main/java', 'src/generated/java'
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked"
+        options.encoding = "UTF-8"
     }
 }

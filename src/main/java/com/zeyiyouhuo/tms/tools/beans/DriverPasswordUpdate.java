@@ -5,6 +5,7 @@ import com.zeyiyouhuo.tms.tools.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
@@ -19,9 +20,17 @@ import org.springframework.stereotype.Component;
 public class DriverPasswordUpdate {
     Logger log = LoggerFactory.getLogger(DriverPasswordUpdate.class);
     @Autowired UserRepository repository;
+    @Value("${cmd:}") String cmd;
 
     @EventListener
     public void updateDriverPassword(ContextRefreshedEvent event) {
+        if (!"updateDriverPassword".equals(cmd)) {
+            log.info("skipped updateDriverPassword");
+            return;
+        } else {
+            log.warn("[(started task)]: " + cmd);
+        }
+
         Page<User> page = repository.findDriver(new PageRequest(0, 500));
         long total = page.getTotalElements();
         int pageNo = 0;

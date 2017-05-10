@@ -16,8 +16,10 @@
     "co": "^4.6.0",
     "moment": "^2.15.1",
     "mysql": "^2.12.0",
+    "co-mysql": "",
     "promise": "^7.1.1",
-    "request": "^2.75.0",
-    "pinyin": "^2.8.0"
+    "request": "^2.81.0",
+    "pinyin": "^2.8.3",
+    "co-sleep": ""
   }
 }
