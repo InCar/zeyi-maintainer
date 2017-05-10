@@ -113,11 +113,9 @@ co(function*() {
                 yield sql.query('insert into hyr_region_code set ?', [row2]);
                 console.log(JSON.stringify(row2));
             }
-            console.log('sleep 2s');
+            console.log('sleep 5s');
             yield sleep(5000);
         }
-        console.log('sleep 5s');
-        yield sleep(5000);
     }
 
     pool.end();

@@ -19,3 +19,4 @@ src/main/resources/static
 **/qdsl/**
 **/generated/**
 *.js.map
+out.txt
