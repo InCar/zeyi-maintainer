@@ -39,7 +39,7 @@ public class SiteCodeUpdate {
             log.warn("[(started task)]: " + cmd);
         }
 
-        Page<Site> page = page  = siteRepository.findAll(new PageRequest(0, 500));
+        Page<Site> page = siteRepository.findAll(new PageRequest(0, 500));
         long total = page.getTotalElements();
         int pageNo = 0;
         while (page.getNumberOfElements() > 0) {
