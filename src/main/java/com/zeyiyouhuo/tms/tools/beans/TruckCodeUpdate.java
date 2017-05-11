@@ -52,6 +52,7 @@ public class TruckCodeUpdate {
 
             page = truckRepository.findAll(new PageRequest(++pageNo, 500));
         }
+        log.info("完成任务：" + cmd);
     }
 
     private void writeTruckCodeAndSave(Truck truck) {

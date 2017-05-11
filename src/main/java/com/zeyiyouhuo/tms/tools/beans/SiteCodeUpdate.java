@@ -52,6 +52,7 @@ public class SiteCodeUpdate {
             pageNo += 1;
             page = siteRepository.findAll(new PageRequest(pageNo, 500));
         }
+        log.info("完成任务：" + cmd);
     }
 
     private void writeSiteCodeAndSave(Site site) {

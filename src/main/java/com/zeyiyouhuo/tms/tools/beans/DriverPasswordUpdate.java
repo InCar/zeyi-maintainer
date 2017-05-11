@@ -47,5 +47,6 @@ public class DriverPasswordUpdate {
             pageNo += 1;
             page = repository.findAll(new PageRequest(pageNo, 500));
         }
+        log.info("完成任务：" + cmd);
     }
 }
