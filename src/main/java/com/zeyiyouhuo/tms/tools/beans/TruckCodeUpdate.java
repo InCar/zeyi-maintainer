@@ -69,7 +69,10 @@ public class TruckCodeUpdate {
 
         int num = 1;
         Truck last = queryFactory.select(qTruck).from(qTruck)
-                .where(qTruck.id.lt(truck.getId()).and(qTruck.createTime.between(start, end)).and(exp))
+                .where(qTruck.id.lt(truck.getId())
+                        .and(qTruck.createTime.goe(start))
+                        .and(qTruck.createTime.lt(end))
+                        .and(exp))
                 .orderBy(qTruck.id.desc())
                 .limit(1)
                 .fetchOne();

@@ -81,7 +81,8 @@ public class ContractCodeUpdate {
         long count = queryFactory.from(qReceivableContract)
                 .where(qReceivableContract.id.lt(contract.getId())
                         .and(qReceivableContract.contractCategory.eq(contract.getContractCategory()))
-                        .and(qReceivableContract.createTime.between(start, end)))
+                        .and(qReceivableContract.createTime.goe(start))
+                        .and(qReceivableContract.createTime.lt(end)))
                 .fetchCount();
         contract.setContractNumber(String.format("ZY-AC-%02d-%02d-%s-%07d", contract.getContractType(),
                 contract.getContractCategory(), new SimpleDateFormat("yyyyMM").format(contract.getCreateTime()), count + 1));
@@ -97,7 +98,8 @@ public class ContractCodeUpdate {
         long count = queryFactory.from(qPayableContract)
                 .where(qPayableContract.id.lt(contract.getId())
                         .and(qPayableContract.contractCategory.eq(contract.getContractCategory()))
-                        .and(qPayableContract.createTime.between(start, end)))
+                        .and(qPayableContract.createTime.goe(start))
+                        .and(qPayableContract.createTime.lt(end)))
                 .fetchCount();
         contract.setContractNumber(String.format("ZY-DC-%02d-%02d-%s-%07d", contract.getContractType(),
                 contract.getContractCategory(), new SimpleDateFormat("yyyyMM").format(contract.getCreateTime()), count + 1));
