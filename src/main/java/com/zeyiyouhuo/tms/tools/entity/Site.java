@@ -42,6 +42,18 @@ public class Site extends AuditableEntity implements Serializable {
 
     private BigDecimal latitude;
 
+    private BigDecimal lngMin;
+
+    private BigDecimal lngMax;
+
+    private BigDecimal latMin;
+
+    private BigDecimal latMax;
+
+    private String fence;
+
+    private boolean fenceRounded;
+
     private boolean deleted;
 
     public long getId() {
@@ -154,6 +166,54 @@ public class Site extends AuditableEntity implements Serializable {
 
     public void setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
+    }
+
+    public BigDecimal getLngMin() {
+        return lngMin;
+    }
+
+    public void setLngMin(BigDecimal lngMin) {
+        this.lngMin = lngMin;
+    }
+
+    public BigDecimal getLngMax() {
+        return lngMax;
+    }
+
+    public void setLngMax(BigDecimal lngMax) {
+        this.lngMax = lngMax;
+    }
+
+    public BigDecimal getLatMin() {
+        return latMin;
+    }
+
+    public void setLatMin(BigDecimal latMin) {
+        this.latMin = latMin;
+    }
+
+    public BigDecimal getLatMax() {
+        return latMax;
+    }
+
+    public void setLatMax(BigDecimal latMax) {
+        this.latMax = latMax;
+    }
+
+    public String getFence() {
+        return fence;
+    }
+
+    public void setFence(String fence) {
+        this.fence = fence;
+    }
+
+    public boolean isFenceRounded() {
+        return fenceRounded;
+    }
+
+    public void setFenceRounded(boolean fenceRounded) {
+        this.fenceRounded = fenceRounded;
     }
 
     public boolean isDeleted() {
