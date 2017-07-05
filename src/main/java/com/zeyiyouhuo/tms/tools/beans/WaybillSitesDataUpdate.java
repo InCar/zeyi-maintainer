@@ -43,10 +43,12 @@ public class WaybillSitesDataUpdate {
 
         QWaybill root = QWaybill.waybill;
         QRouteSiteRelation qRelation = QRouteSiteRelation.routeSiteRelation;
-        JPAQuery<?> query = queryFactory.from(root).where(root.siteDtos.isNull());
+        JPAQuery<?> query = queryFactory.from(root);
         long count = query.fetchCount();
         int pageSize = 500;
-        for (int page = 0; page < Math.ceil(count * 1.0 / pageSize); page ++) {
+        int page = 0;
+        long totalPage = Math.round(count * 1.0 / pageSize + 0.5);
+        while (page < totalPage) {
             List<Waybill> list = query.select(root).offset(page * pageSize).limit(pageSize).fetch();
             for (Waybill w: list) {
                 List<RouteSiteRelation> relations = queryFactory.select(qRelation).from(qRelation)
@@ -58,8 +60,10 @@ public class WaybillSitesDataUpdate {
                 String siteData = objectMapper.writeValueAsString(siteDtos);
                 w.setSiteDtos(siteData);
                 repository.save(w);
-                log.info("update waybill {}， 共{} ", w.getId(), count);
+                log.info("update waybill {}/{}， 共{} ", w.getId(), page * pageSize, count);
             }
+
+            page += 1;
         }
 
     }
