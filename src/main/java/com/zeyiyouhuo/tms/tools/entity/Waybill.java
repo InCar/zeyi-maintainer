@@ -101,6 +101,15 @@ public class Waybill extends AuditableEntity implements Serializable {
     private long rootPartnerId;              //顶级客户Id
     private boolean lateStatus;                  //是否准点 0:晚点 1:准点
     private String siteDtos;                  //线路站点关系集合
+    private int checkStatus;                 //审批状态 0:未处理 1:已处理 2:已确认 3:已审核 4:已关闭 5:车管审批 6:区域审批 7:总部审批 8:已完成
+
+    public int getCheckStatus() {
+        return checkStatus;
+    }
+
+    public void setCheckStatus(int checkStatus) {
+        this.checkStatus = checkStatus;
+    }
 
     public String getSiteDtos() {
         return siteDtos;
