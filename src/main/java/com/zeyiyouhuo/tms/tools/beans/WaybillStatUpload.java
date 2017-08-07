@@ -5,6 +5,7 @@ import com.zeyiyouhuo.tms.tools.biz.DashboardWaybillStatBiz;
 import com.zeyiyouhuo.tms.tools.entity.Org;
 import com.zeyiyouhuo.tms.tools.entity.QOrg;
 import com.zeyiyouhuo.tms.tools.entity.WaybillDayStat;
+import com.zeyiyouhuo.tms.tools.entity.WaybillMonthStat;
 import com.zeyiyouhuo.tms.tools.repository.PayableContractRepository;
 import com.zeyiyouhuo.tms.tools.repository.ReceivableContractRepository;
 import com.zeyiyouhuo.tms.tools.service.OrgService;
@@ -49,7 +50,7 @@ public class WaybillStatUpload {
             log.warn("[(started task)]: " + cmd);
         }
 
-        for (int i = 30; i > 0; i--) {
+        for (int i = 30; i >= 0; i--) {
             Date start = Date.from(LocalDate.now().minusDays(1 + i).atStartOfDay(ZoneId.systemDefault()).toInstant());
             Date end = Date.from(LocalDate.now().minusDays(i).atStartOfDay().minusSeconds(1).atZone(ZoneId.systemDefault()).toInstant());
             QOrg root = QOrg.org;
@@ -63,6 +64,24 @@ public class WaybillStatUpload {
                 stat.setArrivedCount(arrivedCount);
                 stat.setStatTime(start);
                 dayStatService.save(stat);
+            });
+            log.info("每日运单统计任务已完成: {}", new SimpleDateFormat("yyyy-MM-dd").format(start));
+        }
+
+        for (int i = 3; i < 8; i++) {
+            Date start = Date.from(LocalDate.of(2017, i, 1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Date end = Date.from(LocalDate.of(2017, i + 1, 1).atStartOfDay(ZoneId.systemDefault()).minusSeconds(1).toInstant());
+            QOrg root = QOrg.org;
+            List<Org> orgs = orgService.findAll(root.orgType.eq(Org.OrgType.ZEYI_ORG.getTypeCode()), new PageRequest(0, 500)).getContent();
+            orgs.forEach(o -> {
+                long startedCount = statBiz.statDeparturedWaybill(o.getId(), start, end);
+                long arrivedCount = statBiz.statArrivedWaybill(o.getId(), start, end);
+                WaybillMonthStat stat = new WaybillMonthStat();
+                stat.setOrgId(o.getId());
+                stat.setStartedCount(startedCount);
+                stat.setArrivedCount(arrivedCount);
+                stat.setStatTime(start);
+                monthStatService.save(stat);
             });
             log.info("每日运单统计任务已完成: {}", new SimpleDateFormat("yyyy-MM-dd").format(start));
         }
