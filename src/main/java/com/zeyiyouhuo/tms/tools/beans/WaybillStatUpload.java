@@ -6,8 +6,6 @@ import com.zeyiyouhuo.tms.tools.entity.Org;
 import com.zeyiyouhuo.tms.tools.entity.QOrg;
 import com.zeyiyouhuo.tms.tools.entity.WaybillDayStat;
 import com.zeyiyouhuo.tms.tools.entity.WaybillMonthStat;
-import com.zeyiyouhuo.tms.tools.repository.PayableContractRepository;
-import com.zeyiyouhuo.tms.tools.repository.ReceivableContractRepository;
 import com.zeyiyouhuo.tms.tools.service.OrgService;
 import com.zeyiyouhuo.tms.tools.service.WaybillDayStatService;
 import com.zeyiyouhuo.tms.tools.service.WaybillMonthStatService;
@@ -31,9 +29,7 @@ import java.util.List;
  */
 @Component
 public class WaybillStatUpload {
-    Logger log = LoggerFactory.getLogger(ContractCodeUpdate.class);
-    @Autowired ReceivableContractRepository receivableContractRepository;
-    @Autowired PayableContractRepository payableContractRepository;
+    Logger log = LoggerFactory.getLogger(WaybillStatUpload.class);
     @Autowired JPAQueryFactory queryFactory;
     @Autowired DashboardWaybillStatBiz statBiz;
     @Autowired WaybillDayStatService dayStatService;

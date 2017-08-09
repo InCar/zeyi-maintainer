@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  */
 @Component
 public class WaybillSitesDataUpdate {
-    Logger log = LoggerFactory.getLogger(DriverPasswordUpdate.class);
+    Logger log = LoggerFactory.getLogger(WaybillSitesDataUpdate.class);
     @Autowired JPAQueryFactory queryFactory;
     @Autowired WaybillRepository repository;
     @Autowired ObjectMapper objectMapper;
