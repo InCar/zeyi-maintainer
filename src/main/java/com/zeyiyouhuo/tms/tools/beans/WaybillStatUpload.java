@@ -79,7 +79,7 @@ public class WaybillStatUpload {
                 stat.setStatTime(start);
                 monthStatService.save(stat);
             });
-            log.info("每日运单统计任务已完成: {}", new SimpleDateFormat("yyyy-MM-dd").format(start));
+            log.info("每月运单统计任务已完成: {}", new SimpleDateFormat("yyyy-MM-dd").format(start));
         }
     }
 
