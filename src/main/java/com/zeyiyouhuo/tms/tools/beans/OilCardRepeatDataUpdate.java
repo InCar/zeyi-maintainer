@@ -45,7 +45,7 @@ public class OilCardRepeatDataUpdate {
 
         //查出所有重复&可下发的g7油卡
         String sql = "select count(*) as x, card_number, group_concat(id) as ids from hyr_oil_card"
-                + " where status = 1 and remark like 'G7油卡数据同步,同步时间%%%' and create_time >= '2017-08-01'"
+                + " where status = 1 and remark like 'G7油卡数据同步,同步时间%%%' and create_time >= '2017-08-24'"
                 + "group by card_number having x > 1";
         Query query = entityManager.createNativeQuery(sql);
         query.unwrap(SQLQuery.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
